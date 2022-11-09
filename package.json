@@ -1,0 +1,36 @@
+{
+  "name": "learn-koa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "nodemon src/test",
+    "start": "DEBUG=koa* nodemon src/template.js"
+  },
+  "repository": "git@github.com:DreamerKing/learn-koa.git",
+  "author": "Dreamer King <dreamerking@live.cn>",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "ejs": "^3.1.8",
+    "ioredis": "^5.2.3",
+    "koa": "^2.13.4",
+    "koa-body": "^6.0.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-error": "^3.2.0",
+    "koa-mount": "^4.0.0",
+    "koa-rewrite": "^3.0.1",
+    "koa-router": "^12.0.0",
+    "koa-send": "^5.0.1",
+    "koa-session": "^6.2.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^8.0.0",
+    "mime": "^3.0.0",
+    "nanoid": "^4.0.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

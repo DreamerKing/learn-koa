@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/dexie/3.2.2/dexie.js"></script>
+  <title>dexie</title>
+</head>
+<body>
+  learn dexie
+  <script>
+    $(document).ready(function() {
+     /*  const db = new Dexie('dexie1');
+      db.version(1).stores({
+        notes: "++id, text, created"
+      });
+      db.open(); */
+      // 添加
+/*       db.notes.add({
+        text: "fooo",
+        created: new Date().getTime()
+      }).then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        console.error(err);
+      }) */
+      // 读取
+  /*     db.notes.get(1)
+      .then((notes) => {
+        console.log(notes);
+      })
+      .catch((err) => console.error(err)); */
+      // 添加或更新
+/*       db.notes.put({ 
+        text: "hello",
+        id: 1,
+        created: new Date().getTime()})
+      .then((notes) => {
+        console.log(notes);
+      })
+      .catch((err) => console.error(err)); */
+      // 删除
+    /*   db.notes.delete(1)
+      .then((notes) => {
+        console.log(notes);
+      })
+      .catch((err) => console.error(err)); */
+
+      const db = new Dexie('dexie2');
+      db.version(1).stores({
+        person: "++id, name, age"
+      });
+      db.open();
+
+    /*   db.person.put({ name: "king 1", age: 12});
+      db.person.put({ name: "king 2", age: 22});
+      db.person.put({ name: "dreamer", age: 32}); */
+      /* 
+      1. between(a, b) [a,b) 前闭后开的区间
+      2. above(a)  >a
+      3. below(b) <b
+      4. anyOf([])
+      */
+
+      /* db.person.where('name').anyOf(["king", "dreamer"]).each((p) => console.log(p)); */
+
+      new Promise((resolve, reject) => {
+        db.transaction('r', db.person, function() {
+          const ageQueryPromise = db.person.where('age').below(22).toArray();
+          const nameQueryPromise = db.person.where('name').anyOf(["king", "dreamer"]).toArray();
+          resolve(Promise.all([ageQueryPromise, nameQueryPromise]));
+        })
+      }).then(([ageQuery, nameQuery]) => {
+        console.log('ageQuery', ageQuery);
+        console.log('nameQuery', nameQuery);
+      });
+      
+      console.dir(db)
+    })
+  </script>
+</body>
+</html>

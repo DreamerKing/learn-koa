@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title}
+  body 
+    p #{JSON.stringify(session)}
+    if session && session.user 
+      h2 已登陆
+    else 
+      div 
+        label(for="user") 用户名：
+        input(name="user", type="text", id="user")
+      div 
+        label(for="pwd") 密码：
+        input(type="password", name="pwd", id="pwd") 
+      button(id="login") 登陆 
+      div(id="data")
+      script. 
+        const btn = document.getElementById('login');
+        login.addEventListener('click', (e) => {
+          const user = document.getElementById('user').value;
+          const pwd = document.getElementById('pwd').value;
+          if(!user||!pwd) return;
+          const req = fetch('/api/login', { 
+            method: "post", 
+            body: `user=${user}&pwd=${pwd}`,
+            headers: {'content-type': 'application/x-www-form-urlencoded'}
+          });
+          req.then((stream) => stream.text()).then((res) => document.getElementById('data').innerText = res);
+        })

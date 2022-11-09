@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/localforage/1.10.0/localforage.js"></script>
+
+  <title>localForage</title>
+</head>
+<body>
+  <script>
+    $(document).ready(function() {
+      // localforage 没有提供查询功能只适合存储数据
+      localforage.setItem('name', 'localForage').then((res) => console.log(res));
+      localforage.setDriver(localforage.WEBSQL, localforage.LOCALSTORAGE);
+      localforage.setItem('age', 32).then((res) => console.log(res));
+      localforage.getItem('name').then((res) => console.log(res));
+
+      localforage.length().then((res) => console.log(res));
+
+      localforage.keys().then((res) => console.log(res));
+      localforage.iterate(function(value, key, index) {
+        console.log(value, key, index, '>>');
+      });
+
+      // localforage.removeItem('name').then((res) => console.log(res, 'removeItem'));
+
+      // localforage.clear().then((res) => console.log(res, 'clearItem'));
+    })
+  </script>
+</body>
+</html>
